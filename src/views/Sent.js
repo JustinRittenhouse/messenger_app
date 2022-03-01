@@ -1,9 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class Sent extends Component {
-  render() {
-    return (
-      <div>Sent</div>
-    )
-  }
+export const Sent = () => {
+  return (
+    <div>Sent</div>
+  )
 }
