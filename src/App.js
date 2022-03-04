@@ -1,11 +1,16 @@
+import { signInAnonymously, updateCurrentUser } from 'firebase/auth'
 import React from 'react'
 import { Route, Routes, Link } from 'react-router-dom'
+import { useAuth } from './contexts/AuthProvider'
 import { Inbox } from './views/Inbox'
 import { Sent } from './views/Sent'
 import { Trash } from './views/Trash'
 
 
 export const App = () => {
+
+  const{ signIn, currentUser, logOut } = useAuth()
+
   return (
     <React.Fragment>
     <header>
@@ -23,6 +28,19 @@ export const App = () => {
             <li className="nav-item active">
               <Link className="nav-link" to="/trash">Trash</Link>
             </li>
+          </ul>
+          <ul className="navbar-nav ml-auto">
+            {
+              !currentUser.loggedIn
+              ?
+            <li className="nav-item">
+              <Link onClick={ () => signIn() } to="." className="nav-link">Login</Link>
+            </li>
+            :
+            <li className="nav-item">
+              <Link onClick={ () => logOut() } to="." className="nav-link">Logout</Link>
+            </li>
+            }
           </ul>
         </div>
       </nav>
