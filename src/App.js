@@ -1,7 +1,9 @@
 import { signInAnonymously, updateCurrentUser } from 'firebase/auth'
-import React from 'react'
+import { serverTimestamp } from 'firebase/firestore'
+import React, { useContext } from 'react'
 import { Route, Routes, Link } from 'react-router-dom'
 import { useAuth } from './contexts/AuthProvider'
+import { DataContext } from './contexts/DataProvider'
 import { Inbox } from './views/Inbox'
 import { Sent } from './views/Sent'
 import { Trash } from './views/Trash'
@@ -10,6 +12,23 @@ import { Trash } from './views/Trash'
 export const App = () => {
 
   const{ signIn, currentUser, logOut } = useAuth()
+  const { addPost } = useContext( DataContext )
+
+  const messageSubmit = async ( e ) => {
+    e.preventDefault()
+
+    let formData = {
+      body: e.target.messageBody.value,
+      senderId: currentUser.id,
+      timeCreated: serverTimestamp(),
+      userId: e.target.messageId.value
+    }
+
+    addPost( formData )
+
+    e.target.messageBody.value = ''
+    e.target.messageId.value = ''
+  }
 
   return (
     <React.Fragment>
@@ -45,14 +64,29 @@ export const App = () => {
         </div>
       </nav>
     </header>
-    <main>
+    <main className='container'>
       <Routes>
         <Route exact path='/' element={ <Inbox /> } />
         <Route exact path='/sent' element={ <Sent /> } />
         <Route exact path='/trash' element={ <Trash /> } />
       </Routes>
     </main>
-    <footer></footer>
+    <footer>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-10 offset-1'>
+            <form id="newMessage" onSubmit={ ( e ) => messageSubmit( e ) }>
+              <h5>Who are you sending to?</h5>
+              <input type="text" id="messageId" placeholder="Type the user's id here" />
+              <h5>What is your message?</h5>
+              <input type="text" id="messageBody" placeholder="Type your message here" />
+              <button>Send Message</button>
+            </form>
+          </div>
+          </div>
+
+      </div>
+    </footer>
   </React.Fragment>
   )
 }

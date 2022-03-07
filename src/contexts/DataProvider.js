@@ -24,7 +24,7 @@ export const DataProvider = (props) =>
             querySnapshot.forEach(async doc =>
             {
                 const userRef = await getDoc(doc.ref);
-                console.log(userRef.data())
+                // console.log(userRef.data())
 
                 newPosts.push({
                     id: doc.id,

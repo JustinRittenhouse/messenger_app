@@ -12,7 +12,7 @@ export const Inbox = () => {
   return (
     <React.Fragment>
       <div className="row">
-        <div className="offset-4 col-4">
+        <div className="offset-4 col-6">
           <h2>Your Incoming Messages</h2>
         </div>
       </div>
