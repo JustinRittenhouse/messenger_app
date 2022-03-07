@@ -2,6 +2,8 @@ import React from 'react'
 
 export const Trash = () => {
   return (
-    <div>Trash</div>
+    <main id="trash">
+      <div>Trash</div>
+    </main>
   )
 }

@@ -64,21 +64,19 @@ export const App = () => {
         </div>
       </nav>
     </header>
-    <main className='container'>
       <Routes>
         <Route exact path='/' element={ <Inbox /> } />
         <Route exact path='/sent' element={ <Sent /> } />
         <Route exact path='/trash' element={ <Trash /> } />
       </Routes>
-    </main>
     <footer>
       <div className='container'>
         <div className='row'>
           <div className='col-10 offset-1'>
             <form id="newMessage" onSubmit={ ( e ) => messageSubmit( e ) }>
-              <h5>Who are you sending to?</h5>
+              <h6>Who are you sending to?</h6>
               <input type="text" id="messageId" placeholder="Type the user's id here" />
-              <h5>What is your message?</h5>
+              <h6>What is your message?</h6>
               <input type="text" id="messageBody" placeholder="Type your message here" />
               <button>Send Message</button>
             </form>

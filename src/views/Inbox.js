@@ -6,26 +6,28 @@ import { useAuth } from '../contexts/AuthProvider'
 
 export const Inbox = () => {
   const { currentUser } = useAuth()
-  const { messages, setPosts, addPost } = useContext( DataContext )
+  const { messages, setPosts, addPost } = useContext(DataContext)
   const db = getFirestore()
 
   return (
     <React.Fragment>
-      <div className="row">
-        <div className="offset-4 col-6">
-          <h2>Your Incoming Messages</h2>
+      <main className='container'>
+        <div className="row">
+          <div className="offset-4 col-6">
+            <h2>Your Incoming Messages</h2>
+          </div>
         </div>
-      </div>
 
-      <hr />
+        <hr />
 
-      <div className="row">
-        <div className="col-12">
-          <ul className="list-group">
-            <MessageList messages={ messages } />
-          </ul>
+        <div className="row">
+          <div className="col-12">
+            <ul className="list-group">
+              <MessageList messages={messages} />
+            </ul>
+          </div>
         </div>
-      </div>
+      </main>
     </React.Fragment>
   )
 }
