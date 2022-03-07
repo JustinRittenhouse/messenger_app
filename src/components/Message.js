@@ -13,16 +13,20 @@ export const Message = (props) => {
     const [ m, setM ] = useState({})
     const db = getFirestore()
 
-    const [ userName, setUserName ] = useState("")
+    const [ fromName, setFromName ] = useState("")
+    const [ toName, setToName ] = useState("")
 
     useEffect( async () => {
         setM( message )
         // console.log(m)
         // console.log(message.userId)
-        const docRef = doc(db, "users", `${ message.senderId }`);
-        const docSnap = await getDoc(docRef);
-        setUserName(docSnap.data().name)
+        let docRef = doc(db, "users", `${ message.senderId }`);
+        let docSnap = await getDoc(docRef);
+        setFromName(docSnap.data().name)
         // console.log(docSnap.data())
+        docRef = doc(db, "users", `${message.userId}`);
+        docSnap = await getDoc(docRef)
+        setToName(docSnap.data().name)
     }, [])
 
     
@@ -37,7 +41,10 @@ export const Message = (props) => {
                 </span>
             </div>
             <div>
-                <cite> &mdash; {`${ userName }`}</cite>
+                <cite>from -{`${ fromName }`}</cite>
+            </div>
+            <div>
+                <cite>to -{`${ toName }`}</cite>
             </div>
         </li>
     )
